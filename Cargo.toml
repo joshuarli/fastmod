@@ -1,3 +1,5 @@
+cargo-features = ["strip"]
+
 [package]
 name = "fastmod"
 version = "0.4.1"
@@ -11,9 +13,15 @@ keywords = ["codemod"]
 categories = ["command-line-utilities", "development-tools"]
 license = "Apache-2.0"
 
+[profile.release]
+lto = "thin"
+codegen-units = 1
+panic = 'abort'
+strip = 'symbols'
+
 [dependencies]
 anyhow = "1.0"
-clap = "2.31.2"
+clap = { version = "2.33.3", default-features = false }
 crossterm = "0.17"
 diff = "0.1.11"
 grep = "0.2.5"
